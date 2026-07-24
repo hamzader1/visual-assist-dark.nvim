@@ -315,6 +315,23 @@ function M.load()
   vim.g.terminal_color_13 = p.magenta
   vim.g.terminal_color_14 = p.cyan
   vim.g.terminal_color_15 = p.white
+
+  -- =========================================================
+  -- Legacy rust.vim syntax fix-up
+  -- =========================================================
+  -- rust.vim's own $VIMRUNTIME syntax file re-links some of its
+  -- groups (like rustFoldBraces) every time it loads/reloads for
+  -- a buffer, which happens AFTER our colorscheme runs once at
+  -- startup -- silently overwriting our color. Re-apply ours on
+  -- every Syntax event so ours always wins, no matter the order.
+  local group = vim.api.nvim_create_augroup("VisualAssistDarkFixups", { clear = true })
+  vim.api.nvim_create_autocmd("Syntax", {
+    group = group,
+    pattern = "rust",
+    callback = function()
+      vim.api.nvim_set_hl(0, "rustFoldBraces", { fg = p.pure_white })
+    end,
+  })
 end
 
 return M
