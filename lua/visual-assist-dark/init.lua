@@ -251,6 +251,8 @@ function M.load()
   hi("@lsp.typemod.variable.static",        { fg = p.accent })
   hi("@lsp.typemod.variable.constant.rust", { fg = p.accent })
   hi("@lsp.typemod.variable.static.rust",   { fg = p.accent })
+  hi("@lsp.typemod.keyword.unsafe",   { fg = p.custom_red })
+
 
   -- namespaces / module paths (`bitmap` in `use bitmap::BitMap;`):
   -- plain white, NOT the same color as an actual type
@@ -262,11 +264,12 @@ function M.load()
   -- Treesitter when its punctuation highlighting is enabled --
   -- this is why parens kept reverting to variable color
   hi("@lsp.type.punctuation",   { fg = p.pure_white })
-  hi("@lsp.type.formatSpecifier", { fg = p.pure_white }) -- {} placeholders in format strings
+  hi("@lsp.type.formatSpecifier", { fg = p.string }) -- {} placeholders in format strings
+  hi("@lsp.typemod.operator.unsafe", {fg = p.custom_red})
 
   -- legacy (non-Treesitter) rust.vim syntax group used for
   -- brace/paren folding -- confirmed via :Inspect
-  hi("rustFoldBraces",          { fg = p.pure_white })
+  hi("rustFoldBraces",          { fg = p.custom_white })
 
   hi("@lsp.type.variable",      { fg = p.fg })
   hi("@lsp.type.parameter",     { fg = p.fg })
