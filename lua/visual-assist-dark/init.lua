@@ -29,12 +29,12 @@ function M.load()
   hi("NormalNC",      { fg = p.fg, bg = p.bg })
   hi("NormalFloat",  { fg = p.fg, bg = p.bg_float })
   hi("FloatBorder",  { fg = p.fg_gray, bg = p.bg_float })
-  hi("FloatTitle",   { fg = p.fg_dim, bg = p.bg_float, bold = true })
+  hi("FloatTitle",   { fg = p.fg_dim, bg = p.bg_float })
 
   hi("Cursor",       { fg = p.bg, bg = p.cursor1 })
   hi("CursorLine",   { bg = p.bg_status })
   hi("CursorColumn", { bg = p.bg_status })
-  hi("CursorLineNr", { fg = p.fg_dim, bold = true })
+  hi("CursorLineNr", { fg = p.fg_dim })
   hi("LineNr",       { fg = p.fg_gray, bg = p.bg_gutter })
   hi("SignColumn",   { fg = p.fg_gray, bg = p.bg_gutter })
 
@@ -61,10 +61,10 @@ function M.load()
   hi("WinSeparator", { fg = p.bg_status, bg = p.bg })
 
   hi("Directory",    { fg = p.blue })
-  hi("Title",        { fg = p.orange, bold = true })
+  hi("Title",        { fg = p.orange })
   hi("ColorColumn",  { bg = p.bg_status })
   hi("Conceal",      { fg = p.fg_gray })
-  hi("MatchParen",   { fg = p.orange, bold = true, underline = true })
+  hi("MatchParen",   { fg = p.orange, underline = true })
   hi("NonText",      { fg = p.fg_gray })
   hi("Whitespace",   { fg = p.bg_drop })
   hi("SpecialKey",   { fg = p.fg_gray })
@@ -95,7 +95,7 @@ function M.load()
 
   hi("Error",   { fg = p.red, bg = p.bg })
   hi("Warning", { fg = p.yellow })
-  hi("Todo",    { fg = p.bg, bg = p.orange, bold = true })
+  hi("Todo",    { fg = p.bg, bg = p.orange })
 
   -- =========================================================
   -- Diff / Git
@@ -114,7 +114,7 @@ function M.load()
   -- =========================================================
   hi("Comment",        { fg = p.green, italic = true })
 
-  hi("Constant",       { fg = p.blue, bold = true })
+  hi("Constant",       { fg = p.accent })
   hi("String",         { fg = p.string })
   hi("Character",      { fg = p.string })
   hi("Number",         { fg = p.number })
@@ -122,7 +122,7 @@ function M.load()
   hi("Float",           { fg = p.number })
 
   hi("Identifier",     { fg = p.fg })
-  hi("Function",       { fg = p.orange, bold = true })
+  hi("Function",       { fg = p.orange })
 
   hi("Statement",      { fg = p.keyword })
   hi("Conditional",    { fg = p.keyword })
@@ -139,14 +139,14 @@ function M.load()
   hi("PreCondit",      { fg = p.preproc })
 
   hi("Type",           { fg = p.type })
-  hi("StorageClass",   { fg = p.type })
+  hi("StorageClass",   { fg = p.keyword })
   hi("Structure",      { fg = p.type })
   hi("Typedef",        { fg = p.type })
 
   hi("Special",        { fg = p.purple })
   hi("SpecialChar",    { fg = p.string })
   hi("Tag",             { fg = p.keyword })
-  hi("Delimiter",      { fg = p.punct })
+  hi("Delimiter",      { fg = p.pure_white })
   hi("SpecialComment", { fg = p.green })
   hi("Debug",          { fg = p.red })
 
@@ -157,12 +157,12 @@ function M.load()
   -- Treesitter
   -- =========================================================
   hi("@variable",             { fg = p.fg })
-  hi("@variable.builtin",     { fg = p.fg, italic = true })
+  hi("@variable.builtin",     { fg = p.keyword }) -- e.g. `self`: keyword color, nothing special
   hi("@variable.parameter",   { fg = p.fg })
   hi("@variable.member",      { fg = p.property })
 
-  hi("@constant",              { fg = p.blue, bold = true })
-  hi("@constant.builtin",      { fg = p.blue, bold = true })
+  hi("@constant",              { fg = p.accent })
+  hi("@constant.builtin",      { fg = p.accent })
   hi("@constant.macro",        { fg = p.preproc })
 
   hi("@string",                { fg = p.string })
@@ -176,11 +176,11 @@ function M.load()
   hi("@boolean",                { fg = p.blue })
   hi("@float",                  { fg = p.number })
 
-  hi("@function",               { fg = p.orange, bold = true })
-  hi("@function.builtin",       { fg = p.orange, bold = true })
-  hi("@function.macro",         { fg = p.orange, bold = true })
-  hi("@function.method",        { fg = p.orange, bold = true })
-  hi("@constructor",            { fg = p.orange, bold = true })
+  hi("@function",               { fg = p.orange })
+  hi("@function.builtin",       { fg = p.orange })
+  hi("@function.macro",         { fg = p.orange })
+  hi("@function.method",        { fg = p.orange })
+  hi("@constructor",            { fg = p.orange })
 
   hi("@keyword",                { fg = p.keyword })
   hi("@keyword.function",       { fg = p.keyword })
@@ -190,30 +190,53 @@ function M.load()
   hi("@repeat",                  { fg = p.keyword })
   hi("@exception",              { fg = p.keyword })
 
-  hi("@operator",               { fg = p.operator })
-  hi("@punctuation.bracket",    { fg = p.punct })
-  hi("@punctuation.delimiter",  { fg = p.punct })
-  hi("@punctuation.special",    { fg = p.punct })
-  hi("@punctuation.list_marker",{ fg = p.punct })
+  -- storage qualifiers: `mut` (Rust) etc. take plain keyword color
+  hi("@keyword.storage",        { fg = p.keyword })
+  hi("@keyword.modifier",       { fg = p.keyword })
+  hi("@type.qualifier",         { fg = p.keyword })
+  hi("@storageclass",           { fg = p.keyword })
+
+  -- `&` and `*` (refs/derefs): no special color, just plain
+  hi("@operator",               { fg = p.fg })
+
+  -- parentheses / brackets: pure white, not variable-colored
+  hi("@punctuation.bracket",    { fg = p.pure_white })
+  hi("@punctuation.delimiter",  { fg = p.pure_white })
+  hi("@punctuation.special",    { fg = p.pure_white })
+  hi("@punctuation.list_marker",{ fg = p.pure_white })
 
   hi("@property",               { fg = p.property })
   hi("@field",                  { fg = p.property })
   hi("@attribute",              { fg = p.purple })
 
   hi("@type",                   { fg = p.type })
-  hi("@type.builtin",           { fg = p.type })
-  hi("@type.definition",        { fg = p.type })
+  hi("@type.builtin",           { fg = p.accent })  -- primitive types (i32, bool, str, ...)
+  hi("@type.definition",        { fg = p.type })    -- `type Foo = Bar;` gets Type color, not Variable
+  hi("@type.enum",              { fg = p.type })
 
   hi("@tag",                    { fg = p.keyword })
   hi("@tag.attribute",          { fg = p.purple })
-  hi("@tag.delimiter",          { fg = p.punct })
+  hi("@tag.delimiter",          { fg = p.pure_white })
 
   hi("@comment",                { fg = p.green, italic = true })
   hi("@comment.documentation",  { fg = p.green })
 
   hi("@text.literal",           { fg = p.text_lit })
   hi("@markup.link",            { fg = p.blue_bright, underline = true })
-  hi("@markup.heading",         { fg = p.orange, bold = true })
+  hi("@markup.heading",         { fg = p.orange })
+
+  -- =========================================================
+  -- LSP semantic tokens (rust-analyzer etc. often override
+  -- plain Treesitter captures, so mirror the same rules here)
+  -- =========================================================
+  hi("@lsp.type.enum",          { fg = p.type })
+  hi("@lsp.type.enumMember",    { fg = p.type })
+  hi("@lsp.type.typeAlias",     { fg = p.type })    -- `type Foo = Bar;` LHS
+  hi("@lsp.type.builtinType",   { fg = p.accent })  -- primitives
+  hi("@lsp.type.selfKeyword",   { fg = p.keyword })
+  hi("@lsp.type.static",        { fg = p.accent })  -- static items
+  hi("@lsp.typemod.keyword.mut",{ fg = p.keyword })
+  hi("@lsp.mod.mutable",        { fg = p.keyword })
 
   -- =========================================================
   -- LSP

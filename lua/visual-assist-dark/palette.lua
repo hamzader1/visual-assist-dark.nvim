@@ -45,6 +45,10 @@ M.palette = {
 
   hint        = "#969696",
   none        = "NONE",
+
+  -- requested overrides
+  accent      = "#6BA8DC", -- primitive types + constants/static
+  pure_white  = "#FFFFFF", -- parentheses / brackets
 }
 
 return M
