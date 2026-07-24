@@ -262,6 +262,11 @@ function M.load()
   -- Treesitter when its punctuation highlighting is enabled --
   -- this is why parens kept reverting to variable color
   hi("@lsp.type.punctuation",   { fg = p.pure_white })
+  hi("@lsp.type.formatSpecifier", { fg = p.pure_white }) -- {} placeholders in format strings
+
+  -- legacy (non-Treesitter) rust.vim syntax group used for
+  -- brace/paren folding -- confirmed via :Inspect
+  hi("rustFoldBraces",          { fg = p.pure_white })
 
   hi("@lsp.type.variable",      { fg = p.fg })
   hi("@lsp.type.parameter",     { fg = p.fg })
