@@ -317,21 +317,33 @@ function M.load()
   vim.g.terminal_color_15 = p.white
 
   -- =========================================================
-  -- Legacy rust.vim syntax fix-up
+  -- Bracket color, forced
   -- =========================================================
-  -- rust.vim's own $VIMRUNTIME syntax file re-links some of its
-  -- groups (like rustFoldBraces) every time it loads/reloads for
-  -- a buffer, which happens AFTER our colorscheme runs once at
-  -- startup -- silently overwriting our color. Re-apply ours on
-  -- every Syntax event so ours always wins, no matter the order.
+  -- Whatever governs () {} [] in your setup (legacy rust.vim
+  -- syntax, Treesitter, or LSP semantic tokens) has proven
+  -- inconsistent to target directly. matchadd() is a separate
+  -- highlighting layer that renders ON TOP of all of them, so
+  -- this guarantees the color regardless of which engine "wins"
+  -- underneath.
+  vim.api.nvim_set_hl(0, "VisualAssistDarkBrackets", { fg = p.pure_white })
+
+  local function apply_bracket_match()
+    -- clear any previous match from this plugin in this window
+    for _, m in ipairs(vim.fn.getmatches()) do
+      if m.group == "VisualAssistDarkBrackets" then
+        vim.fn.matchdelete(m.id)
+      end
+    end
+    vim.fn.matchadd("VisualAssistDarkBrackets", [[[(){}\[\]]]], 100)
+  end
+
   local group = vim.api.nvim_create_augroup("VisualAssistDarkFixups", { clear = true })
-  vim.api.nvim_create_autocmd("Syntax", {
+  vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter", "ColorScheme" }, {
     group = group,
-    pattern = "rust",
-    callback = function()
-      vim.api.nvim_set_hl(0, "rustFoldBraces", { fg = p.pure_white })
-    end,
+    callback = apply_bracket_match,
   })
+  -- apply immediately to the current window too
+  apply_bracket_match()
 end
 
 return M
