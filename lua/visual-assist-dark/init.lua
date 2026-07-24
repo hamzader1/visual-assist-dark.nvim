@@ -157,7 +157,7 @@ function M.load()
   -- Treesitter
   -- =========================================================
   hi("@variable",             { fg = p.fg })
-  hi("@variable.builtin",     { fg = p.keyword }) -- e.g. `self`: keyword color, nothing special
+  hi("@variable.builtin",     { fg = p.fg }) -- e.g. `self`: same color as normal variables
   hi("@variable.parameter",   { fg = p.fg })
   hi("@variable.member",      { fg = p.property })
 
@@ -210,7 +210,7 @@ function M.load()
   hi("@attribute",              { fg = p.purple })
 
   hi("@type",                   { fg = p.type })
-  hi("@type.builtin",           { fg = p.accent })  -- primitive types (i32, bool, str, ...)
+  hi("@type.builtin",           { fg = p.type })  -- primitive types (i32, bool, str, ...) -> yellow like other types
   hi("@type.definition",        { fg = p.type })    -- `type Foo = Bar;` gets Type color, not Variable
   hi("@type.enum",              { fg = p.type })
 
@@ -240,7 +240,7 @@ function M.load()
   hi("@lsp.type.type",          { fg = p.type })
   hi("@lsp.type.typeAlias",     { fg = p.type })    -- `type Foo = Bar;` LHS
   hi("@lsp.type.enumMember",    { fg = p.type })
-  hi("@lsp.type.builtinType",   { fg = p.accent })  -- primitives (i32, bool, str, ...)
+  hi("@lsp.type.builtinType",   { fg = p.type })  -- primitives -> yellow like other types
 
   -- constants/statics: confirmed via :Inspect the actual group
   -- rust-analyzer emits is @lsp.type.const (not "variable"+modifier
@@ -253,10 +253,10 @@ function M.load()
   hi("@lsp.typemod.variable.static.rust",   { fg = p.accent })
 
   -- namespaces / module paths (`bitmap` in `use bitmap::BitMap;`):
-  -- gray, NOT the same color as an actual type
-  hi("@lsp.type.namespace",     { fg = p.fg_gray })
-  hi("@module",                 { fg = p.fg_gray })
-  hi("@namespace",              { fg = p.fg_gray })
+  -- plain white, NOT the same color as an actual type
+  hi("@lsp.type.namespace",     { fg = p.pure_white })
+  hi("@module",                 { fg = p.pure_white })
+  hi("@namespace",              { fg = p.pure_white })
 
   -- rust-analyzer semantic-tokens punctuation separately from
   -- Treesitter when its punctuation highlighting is enabled --
@@ -270,8 +270,8 @@ function M.load()
   hi("@lsp.type.method",        { fg = p.orange })
   hi("@lsp.type.macro",         { fg = p.preproc })
   hi("@lsp.type.keyword",       { fg = p.keyword }) -- covers `mut`
-  hi("@lsp.type.selfKeyword",   { fg = p.keyword })
-  hi("@lsp.type.selfTypeKeyword", { fg = p.keyword })
+  hi("@lsp.type.selfKeyword",   { fg = p.fg })    -- lowercase `self`: same as normal variables
+  hi("@lsp.type.selfTypeKeyword", { fg = p.type }) -- uppercase `Self`: same as types (yellow)
   hi("@lsp.type.lifetime",      { fg = p.purple })
   hi("@lsp.type.label",         { fg = p.keyword })
   hi("@lsp.type.attribute",     { fg = p.purple })
