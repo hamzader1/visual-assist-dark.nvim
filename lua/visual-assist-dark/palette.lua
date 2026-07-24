@@ -14,6 +14,7 @@ M.palette = {
   bg_drop     = "#383b3d",
   custom_white = "#DCDCDC",
   custom_red = "#E74B3C",
+  custom_green = "#4FCAB1",
 
   fg          = "#BDB76B", -- editor.foreground / variable
   fg_dim      = "#d4d4d4", -- active line number / white

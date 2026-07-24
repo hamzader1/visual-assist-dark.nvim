@@ -275,8 +275,9 @@ function M.load()
   hi("@lsp.type.parameter",     { fg = p.fg })
   hi("@lsp.type.property",      { fg = p.property })
   hi("@lsp.type.function",      { fg = p.orange })
+  hi("@lsp.type.typeParameter", {fg = p.custom_green})
   hi("@lsp.type.method",        { fg = p.orange })
-  hi("@lsp.type.macro",         { fg = p.preproc })
+  hi("@lsp.type.macro",         { fg = p.orange })
   hi("@lsp.type.keyword",       { fg = p.keyword }) -- covers `mut`
   hi("@lsp.type.selfKeyword",   { fg = p.fg })    -- lowercase `self`: same as normal variables
   hi("@lsp.type.selfTypeKeyword", { fg = p.type }) -- uppercase `Self`: same as types (yellow)
