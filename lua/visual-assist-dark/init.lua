@@ -334,7 +334,8 @@ function M.load()
         vim.fn.matchdelete(m.id)
       end
     end
-    vim.fn.matchadd("VisualAssistDarkBrackets", [[[(){}\[\]]]], 100)
+vim.fn.matchadd("VisualAssistDarkBrackets", "[(){}\\[\\]]", 100)
+
   end
 
   local group = vim.api.nvim_create_augroup("VisualAssistDarkFixups", { clear = true })
