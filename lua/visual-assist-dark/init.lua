@@ -88,10 +88,10 @@ function M.load()
   hi("DiagnosticUnderlineInfo",  { undercurl = true, sp = p.blue_bright })
   hi("DiagnosticUnderlineHint",  { undercurl = true, sp = p.hint })
 
-  hi("DiagnosticVirtualTextError", { fg = p.red,        bg = p.bg_float })
-  hi("DiagnosticVirtualTextWarn",  { fg = p.yellow,      bg = p.bg_float })
-  hi("DiagnosticVirtualTextInfo",  { fg = p.blue_bright, bg = p.bg_float })
-  hi("DiagnosticVirtualTextHint",  { fg = p.hint,        bg = p.bg_float })
+  hi("DiagnosticVirtualTextError", { fg = p.red,        bg = p.none })
+  hi("DiagnosticVirtualTextWarn",  { fg = p.yellow,      bg = p.none })
+  hi("DiagnosticVirtualTextInfo",  { fg = p.blue_bright, bg = p.none })
+  hi("DiagnosticVirtualTextHint",  { fg = p.hint,        bg = p.none })
 
   hi("Error",   { fg = p.red, bg = p.bg })
   hi("Warning", { fg = p.yellow })
@@ -112,7 +112,7 @@ function M.load()
   -- =========================================================
   -- Base syntax groups
   -- =========================================================
-  hi("Comment",        { fg = p.green, italic = true })
+  hi("Comment",        { fg = p.green })
 
   hi("Constant",       { fg = p.accent })
   hi("String",         { fg = p.string })
@@ -218,7 +218,7 @@ function M.load()
   hi("@tag.attribute",          { fg = p.purple })
   hi("@tag.delimiter",          { fg = p.pure_white })
 
-  hi("@comment",                { fg = p.green, italic = true })
+  hi("@comment",                { fg = p.green })
   hi("@comment.documentation",  { fg = p.green })
 
   hi("@text.literal",           { fg = p.text_lit })
@@ -294,7 +294,7 @@ function M.load()
   hi("LspReferenceRead",  { bg = p.bg_status })
   hi("LspReferenceWrite", { bg = p.bg_status })
   hi("LspCodeLens",       { fg = p.fg_gray })
-  hi("LspInlayHint",      { fg = p.fg_gray, bg = p.bg_status, italic = true })
+  hi("LspInlayHint",      { fg = p.fg_gray, bg = p.none })
 
   -- =========================================================
   -- Terminal colors
