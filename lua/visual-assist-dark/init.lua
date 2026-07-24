@@ -256,9 +256,9 @@ function M.load()
 
   -- namespaces / module paths (`bitmap` in `use bitmap::BitMap;`):
   -- plain white, NOT the same color as an actual type
-  hi("@lsp.type.namespace",     { fg = p.pure_white })
-  hi("@module",                 { fg = p.pure_white })
-  hi("@namespace",              { fg = p.pure_white })
+  hi("@lsp.type.namespace",     { fg = p.custom_white })
+  hi("@module",                 { fg = p.custom_white })
+  hi("@namespace",              { fg = p.custom_white })
 
   -- rust-analyzer semantic-tokens punctuation separately from
   -- Treesitter when its punctuation highlighting is enabled --
