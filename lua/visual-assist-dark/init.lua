@@ -226,17 +226,50 @@ function M.load()
   hi("@markup.heading",         { fg = p.orange })
 
   -- =========================================================
-  -- LSP semantic tokens (rust-analyzer etc. often override
-  -- plain Treesitter captures, so mirror the same rules here)
+  -- LSP semantic tokens (rust-analyzer's semantic highlighting
+  -- OVERRIDES plain Treesitter captures whenever it's active,
+  -- so every relevant group must be set explicitly here or it
+  -- silently falls back to Normal/@variable color)
   -- =========================================================
+  -- types (was missing @lsp.type.struct -> this was THE bug
+  -- causing every struct-typed identifier to render as Normal)
+  hi("@lsp.type.struct",        { fg = p.type })
   hi("@lsp.type.enum",          { fg = p.type })
-  hi("@lsp.type.enumMember",    { fg = p.type })
+  hi("@lsp.type.union",         { fg = p.type })
+  hi("@lsp.type.trait",         { fg = p.type })
+  hi("@lsp.type.type",          { fg = p.type })
   hi("@lsp.type.typeAlias",     { fg = p.type })    -- `type Foo = Bar;` LHS
-  hi("@lsp.type.builtinType",   { fg = p.accent })  -- primitives
+  hi("@lsp.type.enumMember",    { fg = p.type })
+  hi("@lsp.type.builtinType",   { fg = p.accent })  -- primitives (i32, bool, str, ...)
+
+  -- constants/statics: real semantic type is "variable" + a
+  -- modifier, NOT their own type -> must target the combined
+  -- @lsp.typemod.<type>.<modifier> group
+  hi("@lsp.typemod.variable.constant",      { fg = p.accent })
+  hi("@lsp.typemod.variable.static",        { fg = p.accent })
+  hi("@lsp.typemod.variable.constant.rust", { fg = p.accent })
+  hi("@lsp.typemod.variable.static.rust",   { fg = p.accent })
+
+  -- misc tokens
+  hi("@lsp.type.variable",      { fg = p.fg })
+  hi("@lsp.type.parameter",     { fg = p.fg })
+  hi("@lsp.type.property",      { fg = p.property })
+  hi("@lsp.type.namespace",     { fg = p.blue })
+  hi("@lsp.type.function",      { fg = p.orange })
+  hi("@lsp.type.method",        { fg = p.orange })
+  hi("@lsp.type.macro",         { fg = p.preproc })
+  hi("@lsp.type.keyword",       { fg = p.keyword }) -- covers `mut`
   hi("@lsp.type.selfKeyword",   { fg = p.keyword })
-  hi("@lsp.type.static",        { fg = p.accent })  -- static items
-  hi("@lsp.typemod.keyword.mut",{ fg = p.keyword })
-  hi("@lsp.mod.mutable",        { fg = p.keyword })
+  hi("@lsp.type.selfTypeKeyword", { fg = p.keyword })
+  hi("@lsp.type.lifetime",      { fg = p.purple })
+  hi("@lsp.type.label",         { fg = p.keyword })
+  hi("@lsp.type.attribute",     { fg = p.purple })
+  hi("@lsp.type.derive",        { fg = p.purple })
+  hi("@lsp.type.deriveHelper",  { fg = p.purple })
+  hi("@lsp.type.toolModule",    { fg = p.purple })
+  hi("@lsp.type.string",        { fg = p.string })
+  hi("@lsp.type.number",        { fg = p.number })
+  hi("@lsp.type.operator",      { fg = p.fg })
 
   -- =========================================================
   -- LSP
