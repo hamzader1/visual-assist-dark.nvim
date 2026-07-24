@@ -242,19 +242,30 @@ function M.load()
   hi("@lsp.type.enumMember",    { fg = p.type })
   hi("@lsp.type.builtinType",   { fg = p.accent })  -- primitives (i32, bool, str, ...)
 
-  -- constants/statics: real semantic type is "variable" + a
-  -- modifier, NOT their own type -> must target the combined
-  -- @lsp.typemod.<type>.<modifier> group
+  -- constants/statics: confirmed via :Inspect the actual group
+  -- rust-analyzer emits is @lsp.type.const (not "variable"+modifier
+  -- as generically documented) -- set it directly
+  hi("@lsp.type.const",         { fg = p.accent })
+  hi("@lsp.type.static",        { fg = p.accent })
   hi("@lsp.typemod.variable.constant",      { fg = p.accent })
   hi("@lsp.typemod.variable.static",        { fg = p.accent })
   hi("@lsp.typemod.variable.constant.rust", { fg = p.accent })
   hi("@lsp.typemod.variable.static.rust",   { fg = p.accent })
 
-  -- misc tokens
+  -- namespaces / module paths (`bitmap` in `use bitmap::BitMap;`):
+  -- gray, NOT the same color as an actual type
+  hi("@lsp.type.namespace",     { fg = p.fg_gray })
+  hi("@module",                 { fg = p.fg_gray })
+  hi("@namespace",              { fg = p.fg_gray })
+
+  -- rust-analyzer semantic-tokens punctuation separately from
+  -- Treesitter when its punctuation highlighting is enabled --
+  -- this is why parens kept reverting to variable color
+  hi("@lsp.type.punctuation",   { fg = p.pure_white })
+
   hi("@lsp.type.variable",      { fg = p.fg })
   hi("@lsp.type.parameter",     { fg = p.fg })
   hi("@lsp.type.property",      { fg = p.property })
-  hi("@lsp.type.namespace",     { fg = p.blue })
   hi("@lsp.type.function",      { fg = p.orange })
   hi("@lsp.type.method",        { fg = p.orange })
   hi("@lsp.type.macro",         { fg = p.preproc })
