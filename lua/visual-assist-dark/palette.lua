@@ -4,7 +4,7 @@
 local M = {}
 
 M.palette = {
-  bg          = "#202020",
+  bg          = "#1E1E1E",
   bg_status   = "#303030",
   bg_panel    = "#202020",
   bg_gutter   = "#202020",
